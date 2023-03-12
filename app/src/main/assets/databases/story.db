@@ -1,0 +1,4 @@
+CREATE TABLE stories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    text TEXT
+);
