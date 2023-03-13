@@ -8,7 +8,6 @@ import com.example.numberfacts.retrofit.client.RetrofitClient
 import com.example.numberfacts.room.entity.Story
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,6 +16,10 @@ import retrofit2.Response
 class SecondFragmentViewModel(application: Application) : MyFragmentViewModel(application) {
     val fact = MutableLiveData<String>()
 
+    /**
+     * this function gets fact about number from numbers api, written by user
+     * after getting the fact, we are inserting it to the database
+     */
     fun getFactAboutNumber() {
         RetrofitClient.client.getFactAboutNumber(number.value.toString()).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -32,6 +35,10 @@ class SecondFragmentViewModel(application: Application) : MyFragmentViewModel(ap
 
     }
 
+    /**
+     * this function gets fact about random number from numbers api
+     * after getting the fact, we are inserting it to the database
+     */
    fun getRandomFact() {
        RetrofitClient.client.getFactAboutRandomNumber().enqueue(object : Callback<String> {
            override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -44,8 +51,11 @@ class SecondFragmentViewModel(application: Application) : MyFragmentViewModel(ap
                Log.d("TAG", t.message.toString())
            }
        })
-    }
+   }
 
+    /**
+     * we need this function to insert the fact, we got, to our database
+     */
    fun insert(fact: String) {
        viewModelScope.launch(Dispatchers.IO) {
            storyDao.insert(Story(text = fact))

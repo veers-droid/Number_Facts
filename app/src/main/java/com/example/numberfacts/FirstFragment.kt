@@ -36,6 +36,7 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    //list for adapter
     private val storyList = ArrayList<String>()
     private lateinit var adapter: ArrayAdapter<String>
 
@@ -74,7 +75,9 @@ class FirstFragment : Fragment() {
             }
             else {
                 val bundle = Bundle().apply {
+                    //putting our number to transfer to next fragment
                     putInt(CHOSEN_NUMBER, viewModel.number.value!!)
+                    //putting type of viewModel so that our fragment can create appropriate one
                     putInt(VIEW_MODEL_TYPE, CHOSEN)
                 }
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
@@ -83,6 +86,7 @@ class FirstFragment : Fragment() {
 
         binding.buttonRandom.setOnClickListener {
             val bundle = Bundle().apply {
+                //putting type of viewModel so that our fragment can create appropriate one
                 putInt(VIEW_MODEL_TYPE, RANDOM)
             }
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
@@ -95,10 +99,11 @@ class FirstFragment : Fragment() {
     }
 
     private fun initViewModel() {
-
+        //getting history from db to our LiveData
         viewModel.getStory()
 
         viewModel.facts.observe(viewLifecycleOwner) {
+            //refill listView
             storyList.clear()
             storyList.addAll(it)
             adapter.notifyDataSetChanged()
@@ -112,13 +117,17 @@ class FirstFragment : Fragment() {
         binding.story.adapter = adapter
 
         binding.story.setOnItemClickListener { parent, _, position, _ ->
+            //separate number from its fact
             val itemList = (parent.getItemAtPosition(position) as String).split(" ", limit = 2)
             val number = itemList[0]
             val fact = itemList[1]
 
             val bundle = Bundle().apply {
+                //putting our number to transfer to next fragment
                 putString(CHOSEN_NUMBER, number)
+                //putting our fact to transfer to next fragment
                 putString(FACT, fact)
+                //putting type of viewModel so that our fragment can create appropriate one
                 putInt(VIEW_MODEL_TYPE, HISTORY)
             }
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)

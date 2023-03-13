@@ -12,9 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.numberfacts.databinding.FragmentSecondBinding
 import com.example.numberfacts.viewmodel.SecondFragmentViewModel
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class SecondFragment : Fragment() {
 
     private var chosenNumber: Int? = null
@@ -49,6 +46,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //handling received arguments to create appropriate viewModel
         arguments?.let {
             if (it.getInt(FirstFragment.VIEW_MODEL_TYPE) == FirstFragment.CHOSEN) {
                 chosenNumber = it.getInt(FirstFragment.CHOSEN_NUMBER)

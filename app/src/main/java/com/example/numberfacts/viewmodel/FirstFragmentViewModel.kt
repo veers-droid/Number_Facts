@@ -5,11 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class FirstFragmentViewModel(application: Application) : MyFragmentViewModel(application) {
     val facts = MutableLiveData<ArrayList<String>>()
 
+    /**
+     * this function gets 20 rows with fact from db
+     * and puts the value to our LiveData
+     */
     fun getStory() {
         viewModelScope.launch(Dispatchers.IO) {
             val storyList = ArrayList(storyDao.getAll())
