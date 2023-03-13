@@ -4,5 +4,5 @@
         android:id="@+id/fact"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="22sp"
-        android:maxHeight="28dp"/>
+        android:textSize="@dimen/text_22"
+        android:maxHeight="@dimen/height_28"/>

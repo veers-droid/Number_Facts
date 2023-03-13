@@ -10,20 +10,20 @@
         android:id="@+id/chosenNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
+        android:textSize="@dimen/text_22"
         android:text="@string/chosen_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="@dimen/margin_30"/>
 
     <TextView
         android:id="@+id/numberFact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/margin_30"
         android:maxLines="20"
-        android:textSize="22sp"
+        android:textSize="@dimen/text_22"
         app:layout_constraintTop_toBottomOf="@id/chosenNumber"
-        android:paddingHorizontal="15dp"/>
+        android:paddingHorizontal="@dimen/padding_15"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
