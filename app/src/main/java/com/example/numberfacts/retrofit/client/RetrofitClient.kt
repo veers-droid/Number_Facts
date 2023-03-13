@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitClient {
-    private val BASE_URL = "http://numbersapi.com/"
+    private const val BASE_URL = "http://numbersapi.com/"
 
     val client: RetrofitService by lazy {
         Retrofit.Builder()
