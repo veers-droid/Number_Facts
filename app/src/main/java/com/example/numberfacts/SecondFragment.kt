@@ -1,6 +1,5 @@
 package com.example.numberfacts
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,14 +75,13 @@ class SecondFragment : Fragment() {
     private fun initViewModelWithChosenNumber() {
         viewModel.number.value = chosenNumber
         viewModel.fact.observe(viewLifecycleOwner) {
-            binding.numberFact.append(it)
+            binding.numberFact.append(" $it")
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun initViewModelWithRandomNumber() {
         viewModel.number.observe(viewLifecycleOwner) {
-            binding.chosenNumber.text = "Your number is $it"
+            binding.chosenNumber.append(" $it")
         }
         viewModel.fact.observe(viewLifecycleOwner) {
             binding.numberFact.append(it)
