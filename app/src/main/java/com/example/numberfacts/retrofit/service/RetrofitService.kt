@@ -1,13 +1,13 @@
 package com.example.numberfacts.retrofit.service
 
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface RetrofitService {
     @GET("{number}")
-    fun getFactAboutNumber(@Path("number") number: String): Call<String>
+    fun getFactAboutNumber(@Path("number") number: String): Response<String>
 
     @GET("random/math")
-    fun getFactAboutRandomNumber(): Call<String>
+    fun getFactAboutRandomNumber(): Response<String>
 }
