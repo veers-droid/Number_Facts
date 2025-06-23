@@ -9,9 +9,9 @@ import com.example.numberfacts.room.entity.Story
 interface StoryDao {
 
     @Query("SELECT * FROM stories ORDER BY id DESC LIMIT 20")
-    fun getAll() : List<Story>
+    suspend fun getAll() : List<Story>
 
     @Insert
-    fun insert(story: Story)
+    suspend fun insert(story: Story)
 
 }
