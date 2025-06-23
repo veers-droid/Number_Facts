@@ -1,5 +1,7 @@
 package com.example.numberfacts.ui
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +10,6 @@ import com.example.numberfacts.retrofit.repository.NumberFactsRepository
 import com.example.numberfacts.room.dao.StoryDao
 import com.example.numberfacts.room.entity.Story
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,11 +23,18 @@ class FactsViewModel @Inject constructor(
         get() = _fact
 
 
+    private val _story = mutableStateOf<List<String>>(emptyList())
+    val story: State<List<String>> = _story
+
+    private var alreadyRequested = false
+
     /**
      * this function gets fact about number from numbers api, written by user
      * after getting the fact, we are inserting it to the database
      */
     fun getFactAboutNumber(num : String) {
+        if (alreadyRequested) return
+        alreadyRequested = true
         viewModelScope.launch {
             _fact.value = repository.getFactAboutNumber(num)
             insertToDB()
@@ -38,6 +46,8 @@ class FactsViewModel @Inject constructor(
      * after getting the fact, we are inserting it to the database
      */
     fun getRandomFact() {
+        if (alreadyRequested) return
+        alreadyRequested = true
         viewModelScope.launch {
             _fact.value = repository.getFactAboutRandomNumber()
             insertToDB()
@@ -47,7 +57,7 @@ class FactsViewModel @Inject constructor(
     /**
      * This function inserts to database our fact after we get it
      */
-    private fun insertToDB() {
+    private suspend fun insertToDB() {
         dao.insert(Story(text = _fact.value!!))
     }
 
@@ -55,8 +65,8 @@ class FactsViewModel @Inject constructor(
      * this function gets 20 rows with fact from db
      * and puts the value to our LiveData
      */
-    suspend fun getStory() : List<String> {
-          val res = viewModelScope.async(Dispatchers.IO) {
+    fun getStory() {
+          viewModelScope.launch (Dispatchers.IO) {
             val storyList = ArrayList(dao.getAll())
             val factList = ArrayList<String>()
             if (storyList.isNotEmpty()) {
@@ -64,8 +74,7 @@ class FactsViewModel @Inject constructor(
                     factList.add(fact.text)
                 }
             }
-            factList
+            _story.value = factList
         }
-        return res.await()
     }
 }
