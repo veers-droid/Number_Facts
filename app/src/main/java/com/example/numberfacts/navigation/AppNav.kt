@@ -20,7 +20,7 @@ fun AppNavGraph(navController: NavHostController, viewModelProvider: ViewModelPr
         navController = navController,
         startDestination = "first"
     ) {
-        //navigate to main fragment
+        // navigate to main fragment
         composable("first") { FirstFragment(navController, viewModelProvider) }
         /**
          * navigate to second screen
