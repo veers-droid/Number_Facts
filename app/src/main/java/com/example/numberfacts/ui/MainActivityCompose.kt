@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.example.numberfacts.App
 import com.example.numberfacts.navigation.AppNavGraph
-import com.example.numberfacts.ui.first_fragment.FirstFragment
 import javax.inject.Inject
 
 class MainActivityCompose : ComponentActivity() {
@@ -28,7 +27,6 @@ class MainActivityCompose : ComponentActivity() {
             val navController = rememberNavController()
             AppNavGraph(navController, viewModelFactory)
                 Scaffold(modifier = Modifier.fillMaxSize()) { padding ->
-                    // Оборачиваем навграф внутрь Scaffold и передаём отступы (если будут)
                     Box(modifier = Modifier.padding(padding)) {
                         AppNavGraph(navController, viewModelFactory)
                     }

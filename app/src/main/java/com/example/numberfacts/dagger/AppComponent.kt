@@ -7,7 +7,9 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-
+/**
+ * Base DI class where we binds all modules
+ */
 @Singleton
 @Component(modules = [
 ViewModelModule::class,

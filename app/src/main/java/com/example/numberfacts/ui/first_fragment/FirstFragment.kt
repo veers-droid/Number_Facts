@@ -70,6 +70,9 @@ fun FirstFragment(navController: NavHostController, viewModelProvider: ViewModel
             })
         }
 
+        /**
+         * Column where we display history of got facts
+         */
         LazyColumn(
             modifier = Modifier
                 .weight(1f)

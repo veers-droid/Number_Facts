@@ -5,6 +5,9 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.example.numberfacts.room.entity.Story
 
+/**
+ * Main DAO file where implements queries to db
+ */
 @Dao
 interface StoryDao {
 

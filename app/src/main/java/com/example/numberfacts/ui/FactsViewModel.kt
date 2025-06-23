@@ -18,14 +18,17 @@ class FactsViewModel @Inject constructor(
     private val dao : StoryDao
 ) : ViewModel() {
 
+    //live data about number fact
     private val _fact : MutableLiveData<String> = MutableLiveData()
     val fact : LiveData<String>
         get() = _fact
 
 
+    //Flow of facts history
     private val _story = mutableStateOf<List<String>>(emptyList())
     val story: State<List<String>> = _story
 
+    //need to prevent double request
     private var alreadyRequested = false
 
     /**

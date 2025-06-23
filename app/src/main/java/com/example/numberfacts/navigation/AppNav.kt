@@ -10,13 +10,23 @@ import androidx.navigation.navArgument
 import com.example.numberfacts.ui.first_fragment.FirstFragment
 import com.example.numberfacts.ui.second_fragment.SecondFragment
 
+
+/**
+ * Navigation class
+ */
 @Composable
 fun AppNavGraph(navController: NavHostController, viewModelProvider: ViewModelProvider.Factory) {
     NavHost(
         navController = navController,
         startDestination = "first"
     ) {
+        //navigate to main fragment
         composable("first") { FirstFragment(navController, viewModelProvider) }
+        /**
+         * navigate to second screen
+         * $number - if empty get fact about random number
+         * $fact - if not empty don't make request to get fact
+         */
         composable(
             route = "second/{number}?fact={fact}",
             arguments = listOf(

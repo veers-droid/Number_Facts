@@ -32,11 +32,11 @@ fun SecondFragment(navHostController: NavHostController, viewModelProvider: View
 
     val numberFact by viewModel.fact.observeAsState(initial = "")
 
-    // Используем passedFact, если оно передано, иначе загружаем
     val displayFact = remember(passedFact, numberFact) {
         passedFact ?: numberFact
     }
 
+    //On screen launch if don't have the fact already requests for new fact
     LaunchedEffect(passedFact, number) {
         if (passedFact == null) {
             number?.takeIf { it.isNotBlank() }?.let {
@@ -56,7 +56,6 @@ fun SecondFragment(navHostController: NavHostController, viewModelProvider: View
             text = "Chosen number:${number.takeUnless { it.isNullOrBlank() } ?: "Random"}",
             fontSize = 22.sp
         )
-
 
         Spacer(modifier = Modifier.height(30.dp))
 
